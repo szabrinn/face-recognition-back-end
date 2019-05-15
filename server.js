@@ -12,12 +12,11 @@ const profile = require('./controllers/profile.js');
 const image = require('./controllers/image.js');
 
 const db = knex({
-  client: 'pg',
-  connection: {
-    host : 'postgresql-cylindrical-36022',
-    user : 'postgres',
-    password : '',
-    database : 'face'
+	client: 'pg',
+	connection: {
+	host : process.env.DATABASE_URL,
+	ssl: true,
+   	
   }
 });
 
