@@ -1,5 +1,4 @@
 const express = require( 'express');
-const app = express();
 
 const bodyParser = require('body-parser');
 const bcrypt = require ('bcrypt-nodejs');
@@ -11,6 +10,7 @@ const signin = require('./controllers/signin.js');
 const profile = require('./controllers/profile.js');
 const image = require('./controllers/image.js');
 
+const app = express();
 const db = knex({
 	client: 'pg',
 	connection: {
@@ -25,8 +25,6 @@ app.use(cors());
 
 app.get('/',(req,res) => { res.send("it's working") })
 
-// app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt)}); 
-// OR
 app.post('/signin', signin.handleSignin(db, bcrypt));
 
 app.post('/register', register.handleRegister(db, bcrypt));
@@ -34,6 +32,7 @@ app.post('/register', register.handleRegister(db, bcrypt));
 app.get('/profile/:id', profile.handleProfile(db));
 
 app.put('/image', image.handleImage(db));
+
 app.post('/imageurl', (req, res) => {image.handleApiCall(req, res)});
 
 
